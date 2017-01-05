@@ -19,7 +19,7 @@ public class ChangeUsernameCommand implements Command {
       }
     }
     if (this.name.equals("")) {
-      this.name = ChatSocket.generateName((int) (Math.random() * 4 + 3)) + " " + ChatSocket.generateName((int) (Math.random() * 4 + 4));
+      this.name = ChatSocket.generateName((int) (Math.random() * 3) + 3) + " " + ChatSocket.generateName((int) (Math.random() * 3) + 4);
     }
     this.name = this.name.substring(0, this.name.length() - 1);
   }

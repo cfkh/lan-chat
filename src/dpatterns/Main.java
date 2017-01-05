@@ -15,6 +15,10 @@ import javax.swing.text.DefaultCaret;
 
 import commands.Command;
 import commands.CommandFactory;
+import java.awt.Color;
+import java.awt.Insets;
+import javax.swing.border.BevelBorder;
+import java.awt.SystemColor;
 
 public class Main {
 
@@ -68,14 +72,17 @@ public class Main {
    */
   private static void initialize() {
     frmLanchat = new JFrame();
+    frmLanchat.getContentPane().setBackground(Color.WHITE);
+    frmLanchat.setBackground(Color.WHITE);
     frmLanchat.setTitle("LANChat");
     frmLanchat.setResizable(false);
-    frmLanchat.setBounds(0, 0, 640, 480);
+    frmLanchat.setBounds(200, 200, 640, 480);
     frmLanchat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frmLanchat.getContentPane().setLayout(null);
 
     textField = new JTextField();
-    textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+    textField.setBackground(SystemColor.control);
+    textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
     textField.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent arg0) {
@@ -88,7 +95,9 @@ public class Main {
             socket.send(message);
           }
           textField.setText("");
-          inputs.add(message);
+          if (inputs.size() == 0 || !inputs.get(inputs.size() - 1).equals(message)) {
+            inputs.add(message);
+          }
           history_pos = inputs.size();
         } else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
           if (inputs.size() > 0 && history_pos > 0) {
@@ -103,26 +112,32 @@ public class Main {
         }
       }
     });
-    textField.setBorder(null);
-    textField.setBounds(0, 425, 634, 26);
+    textField.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+    textField.setBounds(10, 414, 614, 26);
     frmLanchat.getContentPane().add(textField);
     textField.requestFocusInWindow();
 
     scrollPane = new JScrollPane();
+    scrollPane.setBackground(Color.WHITE);
     scrollPane.setFocusTraversalKeysEnabled(false);
     scrollPane.setFocusable(false);
     scrollPane.setBorder(null);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    scrollPane.setBounds(0, 0, 634, 422);
+    scrollPane.setBounds(10, 11, 614, 392);
     frmLanchat.getContentPane().add(scrollPane);
 
     textPane = new JTextPane();
+    textPane.setFocusable(false);
+    textPane.setFocusTraversalKeysEnabled(false);
+    textPane.setBackground(Color.WHITE);
+    textPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
     textPane.setAutoscrolls(false);
     scrollPane.setViewportView(textPane);
     textPane.setEditable(false);
     textPane.setBorder(null);
     textPane.setContentType("text/html");
-    textPane.setText("<html><head></head><body style=\"padding:8px;\"></body></html>");
+    textPane.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
+    textPane.setText("<html><head></head><body></body></html>");
     ((DefaultCaret)textPane.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
   }
 }
