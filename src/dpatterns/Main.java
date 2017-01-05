@@ -42,7 +42,10 @@ public class Main {
       }
     });
 
-    socket = new ChatSocket(47567, "230.0.0.1");
+    int port = args.length > 0 ? Integer.parseInt(args[0]) : 40000;
+    String addr = args.length > 1 ? args[1] : "224.0.0.1";
+    System.out.println(addr + ":" + port);
+    socket = new ChatSocket(port, addr);
     while (true) {
       String m = socket.receive();
       if (!m.equals("")) {
