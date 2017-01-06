@@ -32,6 +32,8 @@ public class ChatSocket {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " joined the group " + group + ".");
+    send(text);
   }
 
   public void send(String message) {

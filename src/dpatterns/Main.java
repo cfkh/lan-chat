@@ -30,6 +30,7 @@ public class Main {
   private static ArrayList<String> inputs = new ArrayList<String>();
   private static int history_pos = 0;
   public static boolean muted = false;
+  public static boolean initialized = false;
 
   /**
    * Launch the application.
@@ -49,6 +50,11 @@ public class Main {
     int port = args.length > 0 ? Integer.parseInt(args[0]) : 40000;
     String addr = args.length > 1 ? args[1] : "224.0.0.1";
     System.out.println(addr + ":" + port);
+    
+    while (!initialized) {
+      Thread.yield();
+    }
+    
     socket = new ChatSocket(port, addr);
     while (true) {
       String m = socket.receive();
@@ -139,5 +145,7 @@ public class Main {
     textPane.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
     textPane.setText("<html><head></head><body></body></html>");
     ((DefaultCaret)textPane.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+    
+    initialized = true;
   }
 }
