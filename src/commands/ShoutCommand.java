@@ -23,7 +23,7 @@ public class ShoutCommand implements Command {
     for (String w: Arrays.copyOfRange(words, 1, words.length)) {
       line += w.toUpperCase() + " ";
     }
-    String text = "" + new DItalic(new DBold(new DColor(socket.name, socket.color)) + " shouts: " + line.substring(0, line.length() - 1));
+    String text = "" + new DBold(new DItalic(new DColor(socket.name, socket.color) + " shouts: " + line.substring(0, line.length() - 1)));
     socket.send(text);
   }
 

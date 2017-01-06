@@ -30,7 +30,7 @@ public class ChatSocket {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " joined the group " + group + ".");
+    String text = "" + new DItalic(new DColor(this.name, color) + " joined the group " + group + ".");
     send(text);
   }
 
@@ -48,7 +48,7 @@ public class ChatSocket {
   }
   
   public void changeGroup(String ip) {
-    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " left the group " + group + ".");
+    String text = "" + new DItalic(new DColor(this.name, color) + " left the group " + group + ".");
     send(text);
     try {
       socket.leaveGroup(group);
@@ -57,7 +57,7 @@ public class ChatSocket {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " joined the group " + group + ".");
+    text = "" + new DItalic(new DColor(this.name, color) + " joined the group " + group + ".");
     send(text);
   }
 

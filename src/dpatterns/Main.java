@@ -23,13 +23,13 @@ import decorators.DColor;
 
 public class Main {
 
-  private static JFrame frmLanchat;
-  private static JTextField textField;
-  private static JTextPane textPane;
-  private static JScrollPane scrollPane;
-  private static ChatSocket socket;
-  private static ArrayList<String> inputs = new ArrayList<String>();
-  private static int history_pos = 0;
+  public static JFrame frmLanchat;
+  public static JTextField textField;
+  public static JTextPane textPane;
+  public static JScrollPane scrollPane;
+  public static ChatSocket socket;
+  public static ArrayList<String> inputs = new ArrayList<String>();
+  public static int history_pos = 0;
   public static boolean muted = false;
   public static boolean initialized = false;
 
@@ -127,7 +127,6 @@ public class Main {
 
     scrollPane = new JScrollPane();
     scrollPane.setBackground(Color.WHITE);
-    scrollPane.setFocusTraversalKeysEnabled(false);
     scrollPane.setFocusable(false);
     scrollPane.setBorder(null);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -136,7 +135,6 @@ public class Main {
 
     textPane = new JTextPane();
     textPane.setFocusable(false);
-    textPane.setFocusTraversalKeysEnabled(false);
     textPane.setBackground(Color.WHITE);
     textPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
     textPane.setAutoscrolls(false);

@@ -2,7 +2,6 @@ package commands;
 
 import java.util.Arrays;
 
-import decorators.DBold;
 import decorators.DColor;
 import decorators.DItalic;
 import dpatterns.ChatSocket;
@@ -30,8 +29,7 @@ public class ChangeUsernameCommand implements Command {
 
   @Override
   public void execute() {
-    String text = "" + new DItalic(new DBold(new DColor(socket.name, socket.color)) + " changed their name to "
-        + new DBold(new DColor(name, socket.color)) + ".");
+    String text = "" + new DItalic(new DColor(socket.name, socket.color) + " changed their name to " + new DColor(name, socket.color) + ".");
     socket.send(text);
     socket.name = name;
   }

@@ -26,6 +26,9 @@ public class CommandFactory {
       case "me":
         return new MeCommand(socket, params);
         
+      case "clear":
+        return new ClearCommand();
+        
       default:
         return new InvalidCommand(params);
       }
