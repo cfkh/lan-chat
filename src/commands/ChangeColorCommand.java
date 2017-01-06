@@ -1,7 +1,9 @@
 package commands;
 
+import decorators.DBold;
+import decorators.DColor;
+import decorators.DItalic;
 import dpatterns.ChatSocket;
-import dpatterns.Main;
 
 public class ChangeColorCommand implements Command {
 
@@ -16,7 +18,9 @@ public class ChangeColorCommand implements Command {
   
   @Override
   public void execute() {
-    socket.changeColor(color);
+    String text = "" + new DItalic(new DBold(new DColor(socket.name, color)) + " changed their user color.");
+    socket.send(text);
+    socket.color = color;
   }
 
 }

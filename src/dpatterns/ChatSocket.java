@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,8 +16,8 @@ public class ChatSocket {
   private MulticastSocket socket;
   private InetAddress group;
   private SocketReceiver receiver;
-  private String name = generateName((int) (Math.random() * 3) + 3) + " " + generateName((int) (Math.random() * 3) + 4);
-  private String color = generateColor();
+  public String name = generateName((int) (Math.random() * 3) + 3) + " " + generateName((int) (Math.random() * 3) + 4);
+  public String color = generateColor();
 
   public ChatSocket(int port, String address) {
     try {
@@ -44,31 +42,9 @@ public class ChatSocket {
       e.printStackTrace();
     }
   }
-  
-  public void say(String message) {
-    String text = new DBold(new DColor(name + ": ", color)) + message;
-    send(text);
-  }
-  
-  public void shout(String message) {
-    String text = "" + new DItalic(new DBold(new DColor(name, color)) + " shouts: " + message);
-    send(text);
-  }
 
   public String receive() {
     return receiver.receive();
-  }
-
-  public void changeName(String name) {
-    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " changed their name to " + new DBold(new DColor(name, color)) + ".");
-    send(text);
-    this.name = name;
-  }
-
-  public void changeColor(String color) {
-    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " changed their user color.");
-    send(text);
-    this.color = color;
   }
   
   public void changeGroup(String ip) {

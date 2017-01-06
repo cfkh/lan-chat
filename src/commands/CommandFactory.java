@@ -5,26 +5,29 @@ import dpatterns.ChatSocket;
 public class CommandFactory {
   public static Command extractCommand(ChatSocket socket, String text) {
     if (text.startsWith(":")) {
-      String[] cmd = text.substring(1).split(" ");
+      String[] params = text.substring(1).split(" ");
       
-      switch (cmd[0].toLowerCase()) {
+      switch (params[0].toLowerCase()) {
       case "name":
-        return new ChangeUsernameCommand(socket, cmd);
+        return new ChangeUsernameCommand(socket, params);
         
       case "color":
-        return new ChangeColorCommand(socket, cmd);
+        return new ChangeColorCommand(socket, params);
         
       case "sound":
         return new MuteCommand();
         
       case "shout":
-        return new ShoutCommand(socket, cmd);
+        return new ShoutCommand(socket, params);
       
       case "group":
-        return new ChangeGroupCommand(socket, cmd);
+        return new ChangeGroupCommand(socket, params);
+        
+      case "me":
+        return new MeCommand(socket, params);
         
       default:
-        return new InvalidCommand(cmd);
+        return new InvalidCommand(params);
       }
     }
     return null;

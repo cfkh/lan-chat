@@ -1,7 +1,9 @@
 package dpatterns;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -11,14 +13,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.text.DefaultCaret;
 
 import commands.Command;
 import commands.CommandFactory;
-import java.awt.Color;
-import java.awt.Insets;
-import javax.swing.border.BevelBorder;
-import java.awt.SystemColor;
+import decorators.DBold;
+import decorators.DColor;
 
 public class Main {
 
@@ -98,7 +99,8 @@ public class Main {
           if (cmd != null) {
             cmd.execute();
           } else {
-            socket.say(message);
+            String text = new DBold(new DColor(socket.name + ": ", socket.color)) + message;
+            socket.send(text);
           }
           textField.setText("");
           if (inputs.size() == 0 || !inputs.get(inputs.size() - 1).equals(message)) {

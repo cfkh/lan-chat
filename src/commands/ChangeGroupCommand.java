@@ -1,7 +1,6 @@
 package commands;
 
 import dpatterns.ChatSocket;
-import dpatterns.Main;
 
 public class ChangeGroupCommand implements Command {
 
