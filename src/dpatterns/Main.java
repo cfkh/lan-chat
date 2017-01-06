@@ -86,13 +86,13 @@ public class Main {
     textField.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent arg0) {
-        if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (arg0.getKeyCode() == KeyEvent.VK_ENTER && !textField.getText().equals("")) {
           String message = textField.getText();
           Command cmd = CommandFactory.extractCommand(socket, message);
           if (cmd != null) {
             cmd.execute();
           } else {
-            socket.send(message);
+            socket.say(message);
           }
           textField.setText("");
           if (inputs.size() == 0 || !inputs.get(inputs.size() - 1).equals(message)) {

@@ -30,31 +30,27 @@ public class ChatSocket {
       receiver = new SocketReceiver(socket, group);
       receiver.start();
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
 
   public void send(String message) {
-    String text = new DBold(new DColor(name + ": ", color)) + message;
-    DatagramPacket p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
+    DatagramPacket p = new DatagramPacket(message.getBytes(), message.length(), group, socket.getLocalPort());
     try {
       socket.send(p);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
   
+  public void say(String message) {
+    String text = new DBold(new DColor(name + ": ", color)) + message;
+    send(text);
+  }
+  
   public void shout(String message) {
     String text = "" + new DItalic(new DBold(new DColor(name, color)) + " shouts: " + message);
-    DatagramPacket p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
-    try {
-      socket.send(p);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    send(text);
   }
 
   public String receive() {
@@ -62,54 +58,29 @@ public class ChatSocket {
   }
 
   public void changeName(String name) {
-    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " changed name to " + new DBold(new DColor(name, color)) + ".");
-    DatagramPacket p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
-    try {
-      socket.send(p);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " changed their name to " + new DBold(new DColor(name, color)) + ".");
+    send(text);
     this.name = name;
   }
 
   public void changeColor(String color) {
     String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " changed their user color.");
-    DatagramPacket p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
-    try {
-      socket.send(p);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    send(text);
     this.color = color;
   }
   
   public void changeGroup(String ip) {
     String text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " left the group " + group + ".");
-    DatagramPacket p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
-    try {
-      socket.send(p);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    send(text);
     try {
       socket.leaveGroup(group);
       this.group = InetAddress.getByName(ip);
       socket.joinGroup(this.group);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     text = "" + new DItalic(new DBold(new DColor(this.name, color)) + " joined the group " + group + ".");
-    p = new DatagramPacket(text.getBytes(), text.length(), group, socket.getLocalPort());
-    try {
-      socket.send(p);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    send(text);
   }
 
   public static String generateName(int length) {

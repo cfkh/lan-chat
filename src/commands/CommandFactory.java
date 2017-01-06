@@ -5,9 +5,9 @@ import dpatterns.ChatSocket;
 public class CommandFactory {
   public static Command extractCommand(ChatSocket socket, String text) {
     if (text.startsWith(":")) {
-      String[] cmd = text.toLowerCase().substring(1).split(" ");
+      String[] cmd = text.substring(1).split(" ");
       
-      switch (cmd[0]) {
+      switch (cmd[0].toLowerCase()) {
       case "name":
         return new ChangeUsernameCommand(socket, cmd);
         
