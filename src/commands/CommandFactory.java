@@ -4,7 +4,7 @@ import dpatterns.ChatSocket;
 
 public class CommandFactory {
   public static Command extractCommand(ChatSocket socket, String text) {
-    if (text.startsWith(":")) {
+    if (text.startsWith("/")) {
       String[] params = text.substring(1).split(" ");
       
       switch (params[0].toLowerCase()) {
